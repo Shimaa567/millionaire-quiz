@@ -6,7 +6,7 @@ const Button = ({ text, background, variant }) => {
   const StyledButton = MuiStyled(MuiButton)`
     width: 40px;
     height: 40px;
-    border: 1px solid ;
+    border: 1px solid transparent;
     border-radius: 10px;
     color: white;
     margin: 10px;

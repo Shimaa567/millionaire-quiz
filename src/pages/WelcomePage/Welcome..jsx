@@ -7,20 +7,17 @@ import {
   StyledButtonGroup,
 } from "./Welcome.styled";
 import { Button as MuiButton } from "@mui/material";
-import { Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Categories from "../CategoriesPage/Categories";
+// import Categories from "../CategoriesPage/Categories";
 
 const Welcome = () => {
   const [username, setUsername] = React.useState("");
-  const [categories, setCategories] = React.useState([]);
+  const [difficulty, setDifficulty] = React.useState("");
 
-  const StartGame = () => {
-    fetch("https://opentdb.com/api_category.php")
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data.trivia_categories);
-      });
-  };
+  const navigate = useNavigate();
+
+  console.log(difficulty);
 
   return (
     <StyledContainer>
@@ -35,12 +32,36 @@ const Welcome = () => {
         />
 
         <StyledButtonGroup>
-          <Button text="Easy" background="#71C863" />
-          <Button text="Medium" background="#D1A56D" />
-          <Button text="Hard" background="#E1625B" />
+          <Button
+            text="Easy"
+            background="#71C863"
+            value={difficulty}
+            onClick={() => {
+              setDifficulty("easy");
+              console.log(difficulty);
+            }}
+          />
+          <Button
+            text="Medium"
+            value={difficulty}
+            background="#D1A56D"
+            onClick={() => setDifficulty("medium")}
+          />
+          <Button
+            text="Hard"
+            value={difficulty}
+            background="#E1625B"
+            onClick={() => setDifficulty("hard")}
+          />
         </StyledButtonGroup>
 
-        <MuiButton variant="outlined" onClick={StartGame}>
+        <MuiButton
+          variant="outlined"
+          onClick={() => {
+            navigate("/categories");
+            <Categories difficulty={difficulty} />;
+          }}
+        >
           Start
         </MuiButton>
       </StyledCard>
