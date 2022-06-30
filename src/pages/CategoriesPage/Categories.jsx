@@ -4,7 +4,9 @@ import {
   StyledContainer,
   StyledHeader,
 } from "./Categories.styled";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import Question from "../QuestionPage/Question";
+// import { useQuery } from "react-query";
 
 const Categories = ({ difficulty }) => {
   const [loading, setLoading] = React.useState(true);
@@ -12,7 +14,7 @@ const Categories = ({ difficulty }) => {
 
   const [selectedCategory, setSelectedCategory] = React.useState("");
 
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api_category.php")
@@ -23,13 +25,23 @@ const Categories = ({ difficulty }) => {
       });
   }, []);
 
-  const startGame = (id) => {
-    setSelectedCategory(id);
+  const requestQuestions = async () => {
     fetch(
-      `https://opentdb.com/api.php?amount=10&category=${selectedCategory}&difficulty=easy`
+      `https://opentdb.com/api.php?amount=3&category=${selectedCategory}&difficulty=easy`
     )
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then(({ results }) => {
+        console.log(results);
+      })
+      .finally(() => {
+        navigate("/questions");
+      });
+  };
+
+  const startGame = (id) => {
+    setSelectedCategory(id);
+    console.log(id);
+    requestQuestions();
   };
 
   return (
@@ -43,9 +55,7 @@ const Categories = ({ difficulty }) => {
             <StyledCategoryButton
               key={cat.id}
               variant="contained"
-              onClick={() => {
-                startGame(cat.id);
-              }}
+              onClick={() => startGame(cat.id)}
             >
               {cat.name}
             </StyledCategoryButton>

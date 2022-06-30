@@ -9,7 +9,6 @@ import {
 import { Button as MuiButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Categories from "../CategoriesPage/Categories";
-// import Categories from "../CategoriesPage/Categories";
 
 const Welcome = () => {
   const [username, setUsername] = React.useState("");
