@@ -5,15 +5,15 @@ import {
   StyledHeader,
 } from "./Categories.styled";
 import { useNavigate } from "react-router-dom";
+import { QuestionsContext } from "../../context/QuestionsContext";
 // import Question from "../QuestionPage/Question";
 // import { useQuery } from "react-query";
 
 const Categories = ({ difficulty }) => {
   const [loading, setLoading] = React.useState(true);
   const [categories, setCategories] = React.useState([]);
-
   const [selectedCategory, setSelectedCategory] = React.useState("");
-
+  const { setQuestions } = React.useContext(QuestionsContext);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -25,13 +25,13 @@ const Categories = ({ difficulty }) => {
       });
   }, []);
 
-  const requestQuestions = async () => {
+  const requestQuestions = (category) => {
     fetch(
-      `https://opentdb.com/api.php?amount=3&category=${selectedCategory}&difficulty=easy`
+      `https://opentdb.com/api.php?amount=3&category=${category}&difficulty=easy`
     )
       .then((response) => response.json())
       .then(({ results }) => {
-        console.log(results);
+        setQuestions(results);
       })
       .finally(() => {
         navigate("/questions");
@@ -40,8 +40,7 @@ const Categories = ({ difficulty }) => {
 
   const startGame = (id) => {
     setSelectedCategory(id);
-    console.log(id);
-    requestQuestions();
+    requestQuestions(id);
   };
 
   return (
@@ -51,6 +50,7 @@ const Categories = ({ difficulty }) => {
       ) : (
         <StyledContainer>
           <StyledHeader>Choose the Category & Let's have Fun!</StyledHeader>
+          {selectedCategory}
           {categories.map((cat) => (
             <StyledCategoryButton
               key={cat.id}

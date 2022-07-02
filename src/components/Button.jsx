@@ -2,7 +2,15 @@ import React from "react";
 import { styled as MuiStyled } from "@mui/material";
 import { Button as MuiButton } from "@mui/material";
 
-const Button = ({ text, background, variant }) => {
+const Button = ({ text, background, variant, ...props }) => {
+  /* {userName:"",
+  street:"dsds",
+dddsDS:"",
+
+} */
+
+  /* const ({street,building,...data})=>{axios.post("cxcxcx",{address: ,...data})} */
+
   const StyledButton = MuiStyled(MuiButton)`
     width: 40px;
     height: 40px;
@@ -16,7 +24,11 @@ const Button = ({ text, background, variant }) => {
     }
 
 `;
-  return <StyledButton variant={variant}>{text}</StyledButton>;
+  return (
+    <StyledButton {...props} variant={variant}>
+      {text}
+    </StyledButton>
+  );
 };
 
 export default Button;

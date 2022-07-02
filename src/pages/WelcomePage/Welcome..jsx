@@ -10,13 +10,8 @@ import { Button as MuiButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Categories from "../CategoriesPage/Categories";
 
-const Welcome = () => {
-  const [username, setUsername] = React.useState("");
-  const [difficulty, setDifficulty] = React.useState("");
-
+const Welcome = ({ username, setUsername, difficulty, setDifficulty }) => {
   const navigate = useNavigate();
-
-  console.log(difficulty);
 
   return (
     <StyledContainer>
@@ -34,21 +29,17 @@ const Welcome = () => {
           <Button
             text="Easy"
             background="#71C863"
-            value={difficulty}
             onClick={() => {
               setDifficulty("easy");
-              console.log(difficulty);
             }}
           />
           <Button
             text="Medium"
-            value={difficulty}
             background="#D1A56D"
             onClick={() => setDifficulty("medium")}
           />
           <Button
             text="Hard"
-            value={difficulty}
             background="#E1625B"
             onClick={() => setDifficulty("hard")}
           />
