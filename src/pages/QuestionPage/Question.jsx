@@ -6,6 +6,12 @@ const Question = () => {
 
   const [score, setScore] = React.useState(false);
   const { questions: results } = React.useContext(QuestionsContext);
+
+  const showScore = (score) => {
+    if (score === true) {
+      alert("Congratulations");
+    }
+  };
   const handleNext = (answerOption) => {
     const nextQuestion = currentQuestion + 1;
 
@@ -13,6 +19,7 @@ const Question = () => {
       setCurrentQuestion(nextQuestion);
     } else {
       setScore(true);
+      showScore(score);
     }
   };
 

@@ -27,7 +27,7 @@ const Categories = ({ difficulty }) => {
 
   const requestQuestions = (category) => {
     fetch(
-      `https://opentdb.com/api.php?amount=3&category=${category}&difficulty=easy`
+      `https://opentdb.com/api.php?amount=3&category=${category}&difficulty=${difficulty}`
     )
       .then((response) => response.json())
       .then(({ results }) => {
